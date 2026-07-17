@@ -5,7 +5,7 @@ class ConversationMemory:
 
     def add(self, role: str, content: str) -> None:
         self._messages.append({"role": role, "content": content})
-        if len(self._messages) > self.max_messages:
+        if role == "user" and len(self._messages) > self.max_messages:
             self._messages = self._messages[-self.max_messages:]
 
     def add_assistant_tool_calls(self, raw_tool_calls: list[dict]) -> None:

@@ -27,11 +27,14 @@ def test_reset_clears_all_messages():
 
 
 def test_max_messages_trims_oldest():
+    # Trim only fires on user messages. With max_messages=3:
+    # add user msg1 (1), add assistant msg2 (2), add user msg3 (3),
+    # add user msg4 (4 > 3) -> trim to last 3: [msg2, msg3, msg4]
     mem = ConversationMemory(max_messages=3)
     mem.add("user", "msg1")
     mem.add("assistant", "msg2")
     mem.add("user", "msg3")
-    mem.add("assistant", "msg4")
+    mem.add("user", "msg4")
     msgs = mem.get_messages()
     assert len(msgs) == 3
     assert msgs[0]["content"] == "msg2"

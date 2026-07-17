@@ -6,7 +6,14 @@ from src.memory import ConversationMemory
 from src.db import init_db
 
 load_dotenv()
-init_db()
+
+
+@st.cache_resource
+def _init_db_once():
+    init_db()
+
+
+_init_db_once()
 
 st.set_page_config(page_title="ExampleStore Support", layout="centered")
 st.title("ExampleStore Customer Support")

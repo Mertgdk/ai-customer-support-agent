@@ -29,7 +29,7 @@ def run(user_message: str, memory: ConversationMemory) -> str:
         tool_calls = msg.tool_calls
 
         if not tool_calls:
-            answer = msg.content
+            answer = msg.content or ""
             memory.add("assistant", answer)
             return answer
 
